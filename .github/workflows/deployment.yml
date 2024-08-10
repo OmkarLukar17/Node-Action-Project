@@ -64,8 +64,9 @@ jobs:
       - name: Integration Tests
         id: integration-tests
         run: |
-          curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | jq '.status' | grep '"success"'
+          curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | grep "OK"
           continue-on-error: true
+
 
       - name: Rollback on Failure
         if: failure() # Only run if any previous step fails
