@@ -18,8 +18,8 @@ jobs:
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          # This will automatically use the AWS credentials provided in the GitHub Secrets
-          # AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set in the repository secrets
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           
       - name: Build and push Docker image
         run: |
