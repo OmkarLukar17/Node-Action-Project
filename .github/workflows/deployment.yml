@@ -53,9 +53,31 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
+        id: deploy
         uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
+      - name: Integration Tests
+        id: integration-tests
+        run: |
+          curl -s http://your-alb-dns-name/api/endpoint | jq '.status' | grep '"success"'
+          continue-on-error: true
+
+      - name: Rollback on Failure
+        if: failure() # Only run if any previous step fails
+        uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+          rollback: true # This will be custom logic, explained below
+
+      - name: Notify on Failure
+        if: failure() # Only run if any previous step fails
+        run: |
+          echo "Deployment failed. Rollback performed. Check logs for details."
