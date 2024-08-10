@@ -1,22 +1,22 @@
-# Use the official Node.js image from the Docker Hub
-FROM node:18
 
-# Set the working directory in the container
-WORKDIR /app
+FROM node:18 AS build-stage
 
-# Copy package.json and package-lock.json (or yarn.lock) to the working directory
+WORKDIR /usr/src/app
+
 COPY package*.json ./
 
-# Install application dependencies
-RUN npm i
+RUN npm install
 
-RUN npm run dev
-
-# Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose the port that the application will run on
-EXPOSE 3000
+RUN npm run build
 
-# Define the command to run the application
-CMD ["node", "app.js"]
+FROM nginx:alpine
+
+COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
