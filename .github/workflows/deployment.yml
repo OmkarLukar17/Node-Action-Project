@@ -64,7 +64,7 @@ jobs:
       - name: Integration Tests
         id: integration-tests
         run: |
-          curl -s http://your-alb-dns-name/api/endpoint | jq '.status' | grep '"success"'
+          curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | jq '.status' | grep '"success"'
           continue-on-error: true
 
       - name: Rollback on Failure
