@@ -61,16 +61,11 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
-      # - name: Integration Tests
-      #   id: integration-tests
-      #   run: |
-      #     curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | grep "OK"
-      #   continue-on-error: true
-
       - name: Integration Tests
         id: integration-tests
         run: |
-          curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home
+          curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | grep "Vite + React"
+
 
 
       - name: Rollback on Failure
