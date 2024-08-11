@@ -4,4 +4,4 @@ export const Home = () => {
       <h1>I am Home page17</h1>
     </>
   );
-};
+}
