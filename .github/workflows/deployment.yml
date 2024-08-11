@@ -65,7 +65,7 @@ jobs:
         id: integration-tests
         run: |
           curl -s http://devops-lb-1004528343.us-east-1.elb.amazonaws.com/home | grep "OK"
-          continue-on-error: true
+        continue-on-error: true
 
 
       - name: Rollback on Failure
