@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "my-node-app",
-            "image": "919715752267.dkr.ecr.us-east-1.amazonaws.com/devops-app@sha256:d1c3dec392e6d3ae1ed7ef21d186d195e4690be16c6a8169d5ed66a7ea9bd0c9",
+            "image": "919715752267.dkr.ecr.us-east-1.amazonaws.com/devops-app:7f388b3c3de538bd542f85f18739254720c98ed4",
             "cpu": 0,
             "portMappings": [
                 {
@@ -35,6 +35,8 @@
     ],
     "executionRoleArn": "arn:aws:iam::919715752267:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
     "requiresCompatibilities": [
         "FARGATE"
     ],
