@@ -52,4 +52,4 @@ The repository includes a GitHub Actions workflow that automates the deployment 
 
 ## License
 
-This project is licensed under the MIT License!
+This project is licensed under the MIT License.
